@@ -1,7 +1,5 @@
 # Это мои проэкты на python django
 ## проект: taskmanager
-![](./skrins/1.PNG)
-![](./skrins/2.PNG)
-![][def]
-
-[def]: ./skrins/3.PNG
+![alt text](./skrins/1.PNG)
+![alt text](./skrins/2.PNG)
+![alt text](./skrins/3.PNG)
