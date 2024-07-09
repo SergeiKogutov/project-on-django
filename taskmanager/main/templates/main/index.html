@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+    <h1>Главная страница</h1>
+    {% if tasks %}
+        {% for el in tasks %}
+            <div class="alert alert-warning mt-2">
+                <h3>Задача: {{ el.title }}</h3>
+                <p>Описание: {{ el.task }}</p>
+                <hr>
+                <p>Дедлайн: {{ el.deadlines }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <hr>
+        <p>Нет задач</p>
+    {% endif %}
+
+{% endblock %}
+
