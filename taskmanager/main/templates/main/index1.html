@@ -74,39 +74,45 @@
         </nav>
     </div>
     <!-- Модальное окно для создания задачи -->
-    <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createTaskModalLabel">Создать задачу</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createTaskForm">
-                        <div class="mb-3">
-                            <label for="taskTitle" class="form-label">Название задачи</label>
-                            <input type="text" class="form-control" id="taskTitle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="taskDescription" class="form-label">Описание задачи</label>
-                            <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="taskTitle" class="form-label">Приоритет</label>
-                            <input type="text" class="form-control" id="taskPriority" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="taskTitle" class="form-label">Дедлайн</label>
-                            <input type="text" class="form-control" id="taskDeadline" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary" onclick="createTask()">Создать</button>
-                </div>
-            </div>
-        </div>
+    <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true"> 
+        <div class="modal-dialog"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h5 class="modal-title" id="createTaskModalLabel">Создать задачу</h5> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                </div> 
+                <div class="modal-body"> 
+                    <form id="createTaskForm" method="post"> 
+                        {% csrf_token %}
+                        <div class="mb-3"> 
+                            <label for="id_title" class="form-label">Название задачи</label> 
+                            <input type="text" class="form-control" id="id_title" name="title" required> <!-- Поле для ввода названия -->
+                        </div> 
+                        <div class="mb-3"> 
+                            <label for="id_task" class="form-label">Описание задачи</label> 
+                            <textarea class="form-control" id="id_task" name="task" rows="3" required></textarea> <!-- Поле для ввода описания -->
+                        </div> 
+                        <div class="mb-3"> 
+                            <label for="id_priority" class="form-label">Приоритет</label> 
+                            <select class="form-select" id="id_priority" name="priority" required> <!-- Поле выбора приоритета -->
+                                <option value="" disabled selected>Выберите приоритет</option>
+                                <option value="low">Низкий</option>
+                                <option value="medium">Средний</option>
+                                <option value="high">Высокий</option>
+                            </select>
+                        </div> 
+                        <div class="mb-3"> 
+                            <label for="id_deadlines" class="form-label">Дедлайн</label> 
+                            <input type="date" class="form-control" id="id_deadlines" name="deadlines" required> <!-- Поле для выбора дедлайна -->
+                        </div> 
+                    </form> 
+                </div> 
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button> 
+                    <button type="submit" class="btn btn-primary" form="createTaskForm">Создать</button> <!-- Отправка формы -->
+                </div> 
+            </div> 
+        </div> 
     </div>
     <!-- Модальное окно для редактирования задачи -->
     <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
@@ -121,19 +127,19 @@
                         <input type="hidden" id="editTaskId">
                         <div class="mb-3">
                             <label for="taskTitle" class="form-label">Название задачи</label>
-                            <input type="text" class="form-control" id="taskTitle" required>
+                            <input type="text" class="form-control" id="taskTitle" {{form.title}} required>
                         </div>
                         <div class="mb-3">
                             <label for="taskDescription" class="form-label">Описание задачи</label>
-                            <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+                            <textarea class="form-control" id="taskDescription" rows="3" {{form.task}} required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="taskTitle" class="form-label">Приоритет</label>
-                            <input type="text" class="form-control" id="taskPriority" required>
+                            <input type="text" class="form-control" id="taskPriority" {{form.priority}} required>
                         </div>
                         <div class="mb-3">
                             <label for="taskTitle" class="form-label">Дедлайн</label>
-                            <input type="text" class="form-control" id="taskDeadline" required>
+                            <input type="text" class="form-control" id="taskDeadline" {{form.deadlines}} required>
                         </div>
                     </form>
                 </div>
