@@ -21,6 +21,31 @@
         {% block content %}{% endblock %}
     </div>
   </div>  
-
+  <script>
+    function filterTasks() {
+      const filter = document.getElementById('taskFilter').value.toLowerCase();
+      const rows = document.querySelectorAll('#taskTableBody tr');
+      
+      rows.forEach(row => {
+        let isVisible = false;
+        
+        const columns = row.cells;
+        for (let i = 0; i < columns.length; i++) {
+          const columnText = columns[i].textContent.toLowerCase();
+          if (columnText.includes(filter)) {
+            isVisible = true;
+            break;
+          }
+        }
+        
+        if (isVisible) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+    
+  </script>
 </body>
 </html>

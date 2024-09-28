@@ -32,6 +32,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                 <form id="loginForm">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="loginUsername" class="form-label">Username</label>
                         <input type="text" class="form-control" id="loginUsername" name="username" required>
@@ -40,24 +41,17 @@
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="loginPassword" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" href="{% url 'Home' %}">Войти</button>
+                    <button type="submit" class="btn btn-primary">Войти</button>
                 </form>
             </div>
             <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                <form id="loginForm">
-                    <div class="mb-3">
-                        <label for="registerUsername" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="registerUsername" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registerPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="registerPassword" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registerConfirmPassword" class="form-label">Confirm the password</label>
-                        <input type="password" class="form-control" id="registerConfirmPassword" name="confirm_password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" href="{% url 'Home' %}">Зарегистрироваться</button>
+                <form method="post" >
+                    {% csrf_token %}
+                    {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                        <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
+                    <button id="registerButton" type="submit" class="btn btn-primary" action="{% url 'Home' %}">Зарегистрироваться</button>
                 </form>
             </div>
         </div>
@@ -66,12 +60,11 @@
     <script>
         // Обработчик формы входа
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.pr
-eventDefault(); // Предотвращаем стандартное поведение формы
+            event.preventDefault(); // Предотвращаем стандартное поведение формы
             const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
             try {
-                const response = await fetch({
+                const response = await fetch('/api/token/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,18 +74,28 @@ eventDefault(); // Предотвращаем стандартное повед�
                 if (response.ok) {
                     const data = await response.json();
                     // Сохраните токен в локальное хранилище или куки
-                    localStorage.setItem('token', data.token);
-                    // Перенаправьте пользователя на главную страницу или другую
-                    window.location.href = "{% url 'Home' %}";
+                    localStorage.setItem('token', data.access);
+                    window.location.href = "{% url 'Home' %}"; // Перенаправьте пользователя на главную страницу
                 } else {
                     const errorData = await response.json();
-                    alert(errorData.message || 'Ошибка входа');
+                    alert(errorData.detail || 'Ошибка входа');
                 }
             } catch (error) {
                 console.error('Ошибка:', error);
                 alert('Не удалось выполнить вход');
             }
         });
+        document.getElementById('registerButton').addEventListener('click', function() {
+            // Здесь вы можете добавить логику регистрации
+            // Если регистрация успешна, вы перенаправляете пользователя
+            const data = await response.json();
+            // Сохраните токен в локальное хранилище или куки
+            localStorage.setItem('token', data.access);
+            window.location.href = "{% url 'Home' %}";
+        });
     </script>
 </body>
 </html>
+
+
+

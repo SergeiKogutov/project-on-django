@@ -26,7 +26,6 @@
                 </tr>
             </thead>
             <tbody id="taskTableBody">
-                <!-- Пример задач. Замените на динамические данные -->
                 {% if tasks %}
                     {% for el in tasks %}
                         <tr>
@@ -43,29 +42,9 @@
                         </tr>
                     {% endfor %}
                 {% else %}
-                <!-- Добавьте здесь динамически генерируемые строки задач -->
+                    <p>Нет задач</p>
+                {% endif %}
             </tbody>
         </table>
-        <!-- Пагинация -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Назад</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">Вперед</a></li>
-            </ul>
-        </nav>
     </div>
-
-            <div class="alert alert-warning mt-2">
-                <h3>Задача: {{ el.title }}</h3>
-                <p>Описание: {{ el.task }}</p>                
-                <hr>
-                <p>Приоритет: {{ el.priority}} Статус: {{ el.status }} Дедлайн: {{ el.deadlines }}</p>
-            </div>
-        <hr>
-        <p>Нет задач</p>
-    {% endif %}
-
 {% endblock %}
-
