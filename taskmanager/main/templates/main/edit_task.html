@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Редактировать задачу
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Редактировать задачу</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+    <a href="{% url 'Home' %}" class="btn btn-secondary">Отмена</a>
+</div>
+{% endblock %}

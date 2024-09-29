@@ -36,8 +36,8 @@
                             <td>{{ el.priority}}</td>
                             <td>{{ el.deadlines }}</td>
                             <td>
-                                <a class="btn btn-warning" href="{% url 'Create' %}">Редактировать</a>
-                                <buttom class="btn btn-danger">Удалить</button>
+                                <a class="btn btn-warning" href="{% url 'Edit' el.id %}">Редактировать</a>
+                                <a class="btn btn-danger" href="{% url 'delete_task' el.id %}" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?');">Удалить</a>
                             </td>
                         </tr>
                     {% endfor %}

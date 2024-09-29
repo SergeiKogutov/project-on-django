@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Task(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('title', max_length=50)
     task = models.TextField('task')
     status = models.TextField('status', max_length=50)
