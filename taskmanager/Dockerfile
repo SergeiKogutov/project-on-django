@@ -22,10 +22,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем все файлы проекта
 COPY . .
 
-COPY wait-for-it.sh /usr/local/bin/wait-for-it
-RUN chmod +x /usr/local/bin/wait-for-it
-# Выполняем миграции
-# RUN python manage.py migrate
-
 # Указываем команду для запуска приложения
 CMD ["bash","script_run.sh"]
