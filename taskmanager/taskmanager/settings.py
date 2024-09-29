@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'taskmanager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'taskmanager',
         'USER': 'trudibre_admin',
         'PASSWORD': 'Ser2003#',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': 'db',  
+        'PORT': '5432', 
     }
 }
 
@@ -110,6 +110,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+ALLOWED_HOSTS = ['*']
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
