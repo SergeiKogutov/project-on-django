@@ -8,10 +8,15 @@
     <h1>Создать таск</h1>
     <form method="post">
         {% csrf_token %}
+        <h2>Название задачи</h2>
         {{ form.title }}<br>
+        <h2>Описание задачи</h2>
         {{ form.task }}<br>
+        <h2>Статус задачи</h2>
         {{ form.status}}<br>
+        <h2>Приоритет задачи</h2>
         {{ form.priority}}<br>
+        <h2>Дедлайн</h2>
         {{ form.deadlines }}<br>
         <button type="submit" class="btn btn-success">Добавить</button>
         <span>{{ error }}</span>
